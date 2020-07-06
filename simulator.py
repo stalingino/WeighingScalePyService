@@ -10,6 +10,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-cache")
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET,OPTIONS')
+        self.send_header("Access-Control-Allow-Headers", "Authorization")
         self.end_headers()
         self.wfile.write(b'{"weight":"' + str.encode(str(round(random() * 10 + 10, 3))) + b'"}')
 
@@ -18,6 +19,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-cache")
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET,OPTIONS')
+        self.send_header("Access-Control-Allow-Headers", "Authorization")
         self.end_headers()
         
 httpd = socketserver.TCPServer(('', 3303), Handler)
