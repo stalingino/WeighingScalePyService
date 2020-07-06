@@ -13,7 +13,15 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Headers", "Authorization")
         self.end_headers()
         print(self.path)
-        self.wfile.write(b'{"weight":"' + str.encode(str(round(random() * 10 + 10, 3))) + b'"}')
+        if self.path == '/getWeight':
+            if self.weight:
+                w = self.weight
+                del self.weight
+            else:
+                w = str(round(random() * 10 + 10, 3))
+            self.wfile.write(b'{"weight":"' + str.encode(w) + b'"}')
+        elif self.path.startswith('/setWeight?weight='):
+            self.weight = self.path.split('=')[1]
 
     def do_OPTIONS(self):
         self.send_response(HTTPStatus.OK)
