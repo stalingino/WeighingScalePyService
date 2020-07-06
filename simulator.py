@@ -4,6 +4,8 @@ import socketserver
 from http import HTTPStatus
 from random import random
 
+weight = None
+
 class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         self.send_response(HTTPStatus.OK)
@@ -14,15 +16,15 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         print(self.path)
         if self.path == '/getWeight':
-            if hasattr(self, 'weight'):
-                w = getattr(self, 'weight')
-                delattr(self, 'weight')
+            if weight:
+                w = weight
+                weight = None
             else:
                 w = str(round(random() * 10 + 10, 3))
             self.wfile.write(b'{"weight":"' + str.encode(w) + b'"}')
         elif self.path.startswith('/setWeight'):
-            setattr(self, 'weight', self.path.split('=')[1])
-            self.wfile.write(b'{"weight":"' + str.encode(self.path.split('=')[1]) + b'"}')
+            weight = self.path.split('=')[1]
+            self.wfile.write(b'{"weight":"' + str.encode(weight) + b'"}')
 
     def do_OPTIONS(self):
         self.send_response(HTTPStatus.OK)
