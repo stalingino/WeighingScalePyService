@@ -22,7 +22,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(b'{"weight":"' + str.encode(w) + b'"}')
         elif self.path.startswith('/setWeight'):
             setattr(self, 'weight', self.path.split('=')[1])
-            self.wfile.write(b'{"weight":"' + str.encode(getattr(self, 'weight')) + b'"}')
+            self.wfile.write(b'{"weight":"' + str.encode(self.path.split('=')[1]) + b'"}')
 
     def do_OPTIONS(self):
         self.send_response(HTTPStatus.OK)
