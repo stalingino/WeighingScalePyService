@@ -8,6 +8,7 @@ weight = None
 
 class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
+        global weight
         self.send_response(HTTPStatus.OK)
         self.send_header("Cache-Control", "no-cache")
         self.send_header('Access-Control-Allow-Origin', '*')
