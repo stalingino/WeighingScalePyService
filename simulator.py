@@ -14,7 +14,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         print(self.path)
         if self.path == '/getWeight':
-            if self.weight:
+            if hasattr(self, 'weight'):
                 w = self.weight
                 del self.weight
             else:
