@@ -5,7 +5,7 @@ from http import HTTPStatus
 from random import random
 
 class Handler(http.server.SimpleHTTPRequestHandler):
-    def __init__(self):
+    def __init__(self, request, client_address, server):
         self.weight = None
     
     def do_GET(self):
