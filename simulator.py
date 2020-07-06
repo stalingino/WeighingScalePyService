@@ -5,6 +5,9 @@ from http import HTTPStatus
 from random import random
 
 class Handler(http.server.SimpleHTTPRequestHandler):
+    def __init__(self):
+        self.weight = None
+    
     def do_GET(self):
         self.send_response(HTTPStatus.OK)
         self.send_header("Cache-Control", "no-cache")
@@ -14,9 +17,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         print(self.path)
         if self.path == '/getWeight':
-            if hasattr(self, 'weight'):
+            if self.weight:
                 w = self.weight
-                del self.weight
+                self.weight = None
             else:
                 w = str(round(random() * 10 + 10, 3))
             self.wfile.write(b'{"weight":"' + str.encode(w) + b'"}')
