@@ -17,7 +17,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         print(self.path)
         if self.path == '/getWeight':
-            if weight:
+            if weight is not None:
                 w = weight
                 weight = None
             else:
