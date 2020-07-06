@@ -5,6 +5,8 @@ from http import HTTPStatus
 from random import random
 
 class Handler(http.server.SimpleHTTPRequestHandler):
+    
+    
     def do_GET(self):
         self.send_response(HTTPStatus.OK)
         self.send_header("Cache-Control", "no-cache")
