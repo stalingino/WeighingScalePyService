@@ -20,7 +20,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             else:
                 w = str(round(random() * 10 + 10, 3))
             self.wfile.write(b'{"weight":"' + str.encode(w) + b'"}')
-        elif self.path.startswith('/setWeight?weight='):
+        elif self.path.startswith('/setWeight'):
             setattr(self, 'weight', self.path.split('=')[1])
             self.wfile.write(b'{"weight":"' + str.encode(getattr(self, 'weight')) + b'"}')
 
