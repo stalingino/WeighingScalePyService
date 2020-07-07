@@ -19,7 +19,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if self.path == '/getWeight':
             if weight is not None:
                 w = weight
-                weight = None
+                # weight = None
             else:
                 w = str(round(random() * 10 + 10, 3))
             self.wfile.write(b'{"weight":"' + str.encode(w) + b'"}')
